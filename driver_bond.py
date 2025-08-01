@@ -213,7 +213,7 @@ register_cashflow(isin="INE275315013",pos_id=7,cashflow_payload={'pay_date':date
 register_cashflow(isin="INE275315013",pos_id=7,cashflow_payload={'pay_date':datetime(year=2026,month=9,day=11).date(),'received':0,'payment_amt':39728.65,'payment_type':'PRINCIPAL'})
 register_cashflow(isin="INE275315013",pos_id=7,cashflow_payload={'pay_date':datetime(year=2026,month=10,day=11).date(),'received':0,'payment_amt':41890.37,'payment_type':'PRINCIPAL'})
 '''
-
+'''
 #- INE0NES07188 8
 register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':datetime(year=2025,month=8,day=11).date(),'received':0,'payment_amt':5707.38,'payment_type':'INTEREST'})
 register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':datetime(year=2025,month=9,day=11).date(),'received':0,'payment_amt':5707.38,'payment_type':'INTEREST'})
@@ -234,3 +234,4 @@ register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':date
 register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':datetime(year=2026,month=12,day=11).date(),'received':0,'payment_amt':5523.3,'payment_type':'INTEREST'})
 
 register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':datetime(year=2025,month=7,day=11).date(),'received':0,'payment_amt':600000,'payment_type':'PRINCIPAL'})
+'''
