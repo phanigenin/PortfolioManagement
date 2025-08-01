@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Transaction Input Form</title>
+</head>
+<body>
+    <form method="post" action="{{ url_for('calc_pos') }}">
+        <label for="BizDate">BizDate:</label>
+        <input type="date" name="BizDate" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p> {{message}}</p>
+</body>
+</html>

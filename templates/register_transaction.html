@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Transaction Input Form</title>
+</head>
+<body>
+    <form method="post" action="{{ url_for('insert_trn') }}">
+        <label for="Symbol">Symbol:</label>
+        <input type="text" name="Symbol" required><br>
+
+        <div class="toggle-container">
+        <span class="toggle-label">Buy</span>
+        <label class="switch">
+            <input type="checkbox" name="buysell">
+            <span class="slider"></span>
+        </label>
+        <span class="toggle-label">Check if Sell</span>
+        </div>
+
+        <label for="Price">Price:</label>
+        <input type="number" name="Price" required><br>
+
+        <label for="Qty">Qty:</label>
+        <input type="number" name="Qty" required><br>
+
+        <label for="Strategy">Strategy:</label>
+        <input type="text" name="Strategy" required><br>
+
+        <label for="BizDate">BizDate:</label>
+        <input type="date" name="BizDate" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <p> {{message}}</p>
+</body>
+</html>
+<!-- {"trn_buysell":"B","trn_price":1443.0,"trn_qty":250.0,"trn_date":dt1,"strategy":"value"}-->
