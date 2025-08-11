@@ -17,16 +17,13 @@ register_instrument(isin="INE275315013",instr_payload={"descr":"LoanX SAVE Octâ€
                                                        "int_freq":"Monthly","pmt_freq":"Monthly","bond_type":"NBFC",})
 register_instrument(isin="INE0NES07188",instr_payload={"descr":"Keertana Dec'26","issuer":"Keertana","coupon":11.2,"issue_dt":datetime(year=2024,month=12,day=11).date(),"mat_dt":datetime(year=2026,month=12,day=11).date(),
                                                        "int_freq":"Monthly","pmt_freq":"Monthly","bond_type":"NBFC",})
+register_instrument(isin="INE0NES07170",instr_payload={"descr":"Keertana 30Jan2027","issuer":"Keertana","coupon":11.3,"issue_dt":datetime(year=2024,month=12,day=11).date(),"mat_dt":datetime(year=2027,month=1,day=30).date(),
+                                                       "int_freq":"Monthly","pmt_freq":"Quarterly","bond_type":"NBFC",})                                                     
 '''
+
+
+
 '''
-        self.trn_buysell    = kwargs.get('trn_buysell')
-        self.trn_price      = kwargs.get('trn_price')
-        self.trn_qty        = kwargs.get('trn_qty')
-        self.trn_amt        = kwargs.get('trn_amt')
-        self.trn_date       = kwargs.get('trn_date')
-        self.strategy       = kwargs.get('strategy')
-        self.trn_source     = kwargs.get('trn_source')
-        self.trn_user       = kwargs.get('trn_user')
 
 '''
 
@@ -50,7 +47,12 @@ register_transaction(isin="INE0RU307171",trn_payload={"trn_buysell":"B","trn_pri
 
 #  21-Jul x 1
 register_transaction(isin="INE0NES07188",trn_payload={"trn_buysell":"B","trn_price":118.5262,"trn_qty":6,"trn_amt":592630.8,"trn_date":datetime(year=2025,month=7,day=21).date(),"strategy":"BuyHold","trn_source":"GoldenPi","trn_user":"PHANI"})
+register_transaction(isin="INE0NES07170",trn_payload={"trn_buysell":"B","trn_price":85.348,"trn_qty":7,"trn_amt":597442.18,"trn_date":datetime(year=2025,month=8,day=4).date(),"strategy":"BuyHold","trn_source":"GripInvest","trn_user":"PHANI"})
+
+
+
 '''
+
 from middletier.bonds.positions import calc_pos_asof_bizdate
 '''
 calc_pos_asof_bizdate(datetime(year=2025,month=6,day=4).date())
@@ -59,8 +61,10 @@ calc_pos_asof_bizdate(datetime(year=2025,month=6,day=13).date())
 calc_pos_asof_bizdate(datetime(year=2025,month=7,day=3).date())
 calc_pos_asof_bizdate(datetime(year=2025,month=7,day=9).date())
 calc_pos_asof_bizdate(datetime(year=2025,month=7,day=21).date())
-'''
 
+
+'''
+#calc_pos_asof_bizdate(datetime(year=2025,month=8,day=4).date())
 
 from middletier.bonds.cashflows import register_cashflow
 
@@ -234,4 +238,34 @@ register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':date
 register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':datetime(year=2026,month=12,day=11).date(),'received':0,'payment_amt':5523.3,'payment_type':'INTEREST'})
 
 register_cashflow(isin="INE0NES07188",pos_id=8,cashflow_payload={'pay_date':datetime(year=2025,month=7,day=11).date(),'received':0,'payment_amt':600000,'payment_type':'PRINCIPAL'})
+'''
+
+'''
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2025,month=8,day=30).date(),'received':0,'payment_amt':5758.34,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2025,month=9,day=30).date(),'received':0,'payment_amt':5758.34,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2025,month=10,day=30).date(),'received':0,'payment_amt':5572.63,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2025,month=11,day=30).date(),'received':0,'payment_amt':4798.64,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2025,month=12,day=30).date(),'received':0,'payment_amt':4643.87,'payment_type':'INTEREST'})
+
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=1,day=30).date(),'received':0,'payment_amt':4798.64,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=2,day=28).date(),'received':0,'payment_amt':3591.21,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=3,day=30).date(),'received':0,'payment_amt':3715.04,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=4,day=30).date(),'received':0,'payment_amt':3838.87,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=5,day=30).date(),'received':0,'payment_amt':2786.28,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=6,day=30).date(),'received':0,'payment_amt':2879.17,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=7,day=30).date(),'received':0,'payment_amt':2786.28,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=8,day=30).date(),'received':0,'payment_amt':1919.47,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=9,day=30).date(),'received':0,'payment_amt':1919.47,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=10,day=30).date(),'received':0,'payment_amt':1857.42,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=11,day=30).date(),'received':0,'payment_amt':959.7,'payment_type':'INTEREST'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=12,day=30).date(),'received':0,'payment_amt':928.76,'payment_type':'INTEREST'})
+
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2027,month=1,day=30).date(),'received':0,'payment_amt':959.7,'payment_type':'INTEREST'})
+
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2025,month=10,day=30).date(),'received':0,'payment_amt':99999.97,'payment_type':'PRINCIPAL'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=1,day=30).date(),'received':0,'payment_amt':99999.97,'payment_type':'PRINCIPAL'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=4,day=30).date(),'received':0,'payment_amt':99999.97,'payment_type':'PRINCIPAL'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=7,day=30).date(),'received':0,'payment_amt':99999.97,'payment_type':'PRINCIPAL'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2026,month=10,day=30).date(),'received':0,'payment_amt':99999.97,'payment_type':'PRINCIPAL'})
+register_cashflow(isin="INE0NES07170",pos_id=9,cashflow_payload={'pay_date':datetime(year=2027,month=1,day=30).date(),'received':0,'payment_amt':100000.18,'payment_type':'PRINCIPAL'})
 '''

@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request
-from middletier.positions import calc_pos_asof_bizdate
+
 from middletier.equity.transactions import register_transaction
 from datetime import datetime
 
@@ -35,6 +35,9 @@ def insert_trn():
 
 @app.route('/calc_pos', methods=['GET', 'POST'])
 def calc_pos():
+    from middletier.bonds.positions import calc_pos_asof_bizdate
+    from middletier.equity.positions import calc_pos_asof_bizdate
+
     if request.method == 'POST':
         print(request.form)
 
