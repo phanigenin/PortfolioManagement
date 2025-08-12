@@ -6,7 +6,7 @@ from sqlalchemy.orm.collections import attribute_mapped_collection
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from datamart.consts import OUT_Z_ETER,TODAY,ORIGIN,THRU_Z_ETER,NOW
+from PortfolioManagement.datamart.consts import OUT_Z_ETER,TODAY,ORIGIN,THRU_Z_ETER,NOW
 
 Base = declarative_base()
 

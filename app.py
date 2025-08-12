@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,jsonify
 
 from middletier.equity.transactions import register_transaction
 from datetime import datetime
@@ -49,6 +49,15 @@ def calc_pos():
     else:
         msg = 'Please submit date'
         return render_template('calc_positions.html',message=msg)
+
+@app.route('/open_pos_bonds', methods=['GET'])
+def calc_pos():
+    from middletier.bonds.bonds_api import get_all_bond_positions_detail
+
+    res  = get_all_bond_positions_detail()
+    data = res.to_dict(orient="records")
+    return jsonify(data)
+
 
 if __name__ == '__main__':
     app.run(debug=True,port=5002)

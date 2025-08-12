@@ -1,32 +1,87 @@
 def get_pos_all_open(sess=None):
-    from datamart.consts import TODAY
+    from PortfolioManagement.datamart.consts import TODAY
     return get_pos_asof_bizdate(TODAY,sess)
 
 def get_pos_asof_bizdate(biz_date,sess=None):
-    from datamart.tables import PositionBondIndia
-    from datamart.access import get_valid_session
+    from PortfolioManagement.datamart.tables import PositionBondIndia
+    from PortfolioManagement.datamart.access import get_valid_session
     import pandas as pd
-    from datamart.consts import TODAY,THRU_Z_ETER
+    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
     from sqlalchemy import and_
 
     sess = sess if sess else get_valid_session()
-    qry  = sess.query(PositionBondIndia).filter(and_(PositionBondIndia.out_z>TODAY,PositionBondIndia.from_z<=biz_date,PositionBondIndia.thru_z==THRU_Z_ETER))
+    qry  = sess.query(PositionBondIndia).filter(and_(PositionBondIndia.out_z>=THRU_Z_ETER,PositionBondIndia.from_z<=biz_date,PositionBondIndia.thru_z==THRU_Z_ETER))
     return pd.read_sql(qry.statement, sess.bind)
 
+def get_pos_asof_bizdate_detail(biz_date,sess=None):
+    from PortfolioManagement.datamart.tables import PositionBondIndia,InstrumentsBondIndia
+    from PortfolioManagement.datamart.access import get_valid_session
+    import pandas as pd
+    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from sqlalchemy import and_
+
+    sess = sess if sess else get_valid_session()
+    qry  = (
+                sess.query(PositionBondIndia.isin,PositionBondIndia.from_z,PositionBondIndia.pos_user,PositionBondIndia.pos_source,InstrumentsBondIndia.coupon,
+                           PositionBondIndia.open_qty,PositionBondIndia.pos_amt,
+                           InstrumentsBondIndia.bond_type,InstrumentsBondIndia.issuer,InstrumentsBondIndia.descr)
+                .join(InstrumentsBondIndia, PositionBondIndia.isin == InstrumentsBondIndia.isin)
+                .filter(and_(PositionBondIndia.out_z>=THRU_Z_ETER,PositionBondIndia.from_z<=biz_date,PositionBondIndia.thru_z==THRU_Z_ETER))
+           )
+
+    return pd.read_sql(qry.statement, sess.bind)
+
+def get_pos_asof_bizdate_detail_by_user(user,biz_date,sess=None):
+    from PortfolioManagement.datamart.tables import PositionBondIndia,InstrumentsBondIndia
+    from PortfolioManagement.datamart.access import get_valid_session
+    import pandas as pd
+    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from sqlalchemy import and_
+
+    sess = sess if sess else get_valid_session()
+    qry  = (
+                sess.query(PositionBondIndia.isin,PositionBondIndia.from_z,PositionBondIndia.pos_user,PositionBondIndia.pos_source,InstrumentsBondIndia.coupon,
+                           PositionBondIndia.open_qty,PositionBondIndia.pos_amt,
+                           InstrumentsBondIndia.bond_type,InstrumentsBondIndia.issuer,InstrumentsBondIndia.descr)
+                .join(InstrumentsBondIndia, PositionBondIndia.isin == InstrumentsBondIndia.isin)
+                .filter(and_(PositionBondIndia.out_z>=THRU_Z_ETER,PositionBondIndia.from_z<=biz_date,PositionBondIndia.thru_z==THRU_Z_ETER,PositionBondIndia.pos_user==user))
+           )
+
+    return pd.read_sql(qry.statement, sess.bind)
+
+def get_pos_closed_asof_bizdate_detail(biz_date,sess=None):
+    from PortfolioManagement.datamart.tables import PositionBondIndia,InstrumentsBondIndia
+    from PortfolioManagement.datamart.access import get_valid_session
+    import pandas as pd
+    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from sqlalchemy import and_
+
+    sess = sess if sess else get_valid_session()
+    qry  = (
+                sess.query(PositionBondIndia.isin,PositionBondIndia.from_z,PositionBondIndia.pos_user,PositionBondIndia.pos_source,InstrumentsBondIndia.coupon,
+                           PositionBondIndia.open_qty,PositionBondIndia.pos_amt,
+                           InstrumentsBondIndia.bond_type,InstrumentsBondIndia.issuer,InstrumentsBondIndia.descr)
+                .join(InstrumentsBondIndia, PositionBondIndia.isin == InstrumentsBondIndia.isin)
+                .filter(and_(PositionBondIndia.out_z>=THRU_Z_ETER,PositionBondIndia.from_z<=biz_date,PositionBondIndia.thru_z<=biz_date))
+           )
+
+    return pd.read_sql(qry.statement, sess.bind)
+
+
 def close_pos_asof_bizdate(isin,biz_date,sess=None):
-    from datamart.tables import PositionBondIndia
-    from datamart.access import get_valid_session
-    from datamart.consts import TODAY,THRU_Z_ETER
+    from PortfolioManagement.datamart.tables import PositionBondIndia
+    from PortfolioManagement.datamart.access import get_valid_session
+    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
     from sqlalchemy import and_,update
 
     sess = sess if sess else get_valid_session()
-    qry  = (update(PositionBondIndia).where(and_(PositionBondIndia.out_z>TODAY,PositionBondIndia.from_z<=biz_date,PositionBondIndia.thru_z==THRU_Z_ETER,PositionBondIndia.isin==isin)).values({PositionBondIndia.thru_z:biz_date}))
+    qry  = (update(PositionBondIndia).where(and_(PositionBondIndia.out_z>=THRU_Z_ETER,PositionBondIndia.from_z<=biz_date,PositionBondIndia.thru_z==THRU_Z_ETER,PositionBondIndia.isin==isin)).values({PositionBondIndia.thru_z:biz_date}))
     sess.execute(qry)
     sess.commit()
 
 def register_pos_asof_bizdate(isin,biz_date,price,qty,amount,strategy,pos_source,pos_user,sess=None):
-    from datamart.tables import PositionBondIndia
-    from datamart.access import get_valid_session
+    from PortfolioManagement.datamart.tables import PositionBondIndia
+    from PortfolioManagement.datamart.access import get_valid_session
 
     sess = sess if sess else get_valid_session()
     obj  = PositionBondIndia(isin=isin,open_price=price,open_qty=qty,biz_date=biz_date,strategy=strategy,pos_amt=amount,
@@ -35,8 +90,8 @@ def register_pos_asof_bizdate(isin,biz_date,price,qty,amount,strategy,pos_source
     sess.commit()
 
 def calc_pos_asof_bizdate(biz_date,sess=None):
-    from middletier.bonds.transactions import get_trn_bizdate,consolidate_trns
-    from middletier.bonds.mtm_realised import register_mtm_realised_asof_bizdate
+    from PortfolioManagement.middletier.bonds.transactions import get_trn_bizdate,consolidate_trns
+    from PortfolioManagement.middletier.bonds.mtm_realised import register_mtm_realised_asof_bizdate
 
     trn_asof = get_trn_bizdate(biz_date=biz_date,sess=sess)
     pos_asof = get_pos_asof_bizdate(biz_date=biz_date,sess=sess)
