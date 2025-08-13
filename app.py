@@ -33,31 +33,26 @@ def insert_trn():
         msg = 'Please submit transaction'
         return render_template('register_transaction.html',message=msg)
 
-@app.route('/calc_pos', methods=['GET', 'POST'])
-def calc_pos():
-    from middletier.bonds.positions import calc_pos_asof_bizdate
-    from middletier.equity.positions import calc_pos_asof_bizdate
-
-    if request.method == 'POST':
-        print(request.form)
-
-        biz_date  = datetime.strptime(request.form['BizDate'],'%Y-%m-%d').date()
-        calc_pos_asof_bizdate(biz_date=biz_date)
-        msg = "Calc Positions submitted !"
-        return render_template('calc_positions.html',message=msg)
-
-    else:
-        msg = 'Please submit date'
-        return render_template('calc_positions.html',message=msg)
-
 @app.route('/open_pos_bonds', methods=['GET'])
-def calc_pos():
+def open_pos_bonds():
     from middletier.bonds.bonds_api import get_all_bond_positions_detail
 
     res  = get_all_bond_positions_detail()
     data = res.to_dict(orient="records")
     return jsonify(data)
 
+@app.route('/get_bond_instruments', methods=['GET'])
+def get_bond_instruments():
+    from middletier.bonds.bonds_api import get_bond_instruments,get_instrument_by_issuers,get_bond_instruments_by_isins
 
+    print(get_instrument_by_issuers(["Keertana"]))
+    print(get_bond_instruments_by_isins(["INE296Q07068","INE0NES07188"]))
+
+    res  = get_bond_instruments()
+    data = res.to_dict(orient="records")
+    return jsonify(data)
+
+#http://127.0.0.1:5002/open_pos_bonds
+#http://127.0.0.1:5002/get_bond_instruments
 if __name__ == '__main__':
     app.run(debug=True,port=5002)

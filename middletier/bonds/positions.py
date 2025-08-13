@@ -1,12 +1,12 @@
 def get_pos_all_open(sess=None):
-    from PortfolioManagement.datamart.consts import TODAY
+    from datamart.consts import TODAY
     return get_pos_asof_bizdate(TODAY,sess)
 
 def get_pos_asof_bizdate(biz_date,sess=None):
-    from PortfolioManagement.datamart.tables import PositionBondIndia
-    from PortfolioManagement.datamart.access import get_valid_session
+    from datamart.tables import PositionBondIndia
+    from datamart.access import get_valid_session
     import pandas as pd
-    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from datamart.consts import TODAY,THRU_Z_ETER
     from sqlalchemy import and_
 
     sess = sess if sess else get_valid_session()
@@ -14,10 +14,10 @@ def get_pos_asof_bizdate(biz_date,sess=None):
     return pd.read_sql(qry.statement, sess.bind)
 
 def get_pos_asof_bizdate_detail(biz_date,sess=None):
-    from PortfolioManagement.datamart.tables import PositionBondIndia,InstrumentsBondIndia
-    from PortfolioManagement.datamart.access import get_valid_session
+    from datamart.tables import PositionBondIndia,InstrumentsBondIndia
+    from datamart.access import get_valid_session
     import pandas as pd
-    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from datamart.consts import TODAY,THRU_Z_ETER
     from sqlalchemy import and_
 
     sess = sess if sess else get_valid_session()
@@ -32,10 +32,10 @@ def get_pos_asof_bizdate_detail(biz_date,sess=None):
     return pd.read_sql(qry.statement, sess.bind)
 
 def get_pos_asof_bizdate_detail_by_user(user,biz_date,sess=None):
-    from PortfolioManagement.datamart.tables import PositionBondIndia,InstrumentsBondIndia
-    from PortfolioManagement.datamart.access import get_valid_session
+    from datamart.tables import PositionBondIndia,InstrumentsBondIndia
+    from datamart.access import get_valid_session
     import pandas as pd
-    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from datamart.consts import TODAY,THRU_Z_ETER
     from sqlalchemy import and_
 
     sess = sess if sess else get_valid_session()
@@ -50,10 +50,10 @@ def get_pos_asof_bizdate_detail_by_user(user,biz_date,sess=None):
     return pd.read_sql(qry.statement, sess.bind)
 
 def get_pos_closed_asof_bizdate_detail(biz_date,sess=None):
-    from PortfolioManagement.datamart.tables import PositionBondIndia,InstrumentsBondIndia
-    from PortfolioManagement.datamart.access import get_valid_session
+    from datamart.tables import PositionBondIndia,InstrumentsBondIndia
+    from datamart.access import get_valid_session
     import pandas as pd
-    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from datamart.consts import TODAY,THRU_Z_ETER
     from sqlalchemy import and_
 
     sess = sess if sess else get_valid_session()
@@ -69,9 +69,9 @@ def get_pos_closed_asof_bizdate_detail(biz_date,sess=None):
 
 
 def close_pos_asof_bizdate(isin,biz_date,sess=None):
-    from PortfolioManagement.datamart.tables import PositionBondIndia
-    from PortfolioManagement.datamart.access import get_valid_session
-    from PortfolioManagement.datamart.consts import TODAY,THRU_Z_ETER
+    from datamart.tables import PositionBondIndia
+    from datamart.access import get_valid_session
+    from datamart.consts import TODAY,THRU_Z_ETER
     from sqlalchemy import and_,update
 
     sess = sess if sess else get_valid_session()
@@ -80,8 +80,8 @@ def close_pos_asof_bizdate(isin,biz_date,sess=None):
     sess.commit()
 
 def register_pos_asof_bizdate(isin,biz_date,price,qty,amount,strategy,pos_source,pos_user,sess=None):
-    from PortfolioManagement.datamart.tables import PositionBondIndia
-    from PortfolioManagement.datamart.access import get_valid_session
+    from datamart.tables import PositionBondIndia
+    from datamart.access import get_valid_session
 
     sess = sess if sess else get_valid_session()
     obj  = PositionBondIndia(isin=isin,open_price=price,open_qty=qty,biz_date=biz_date,strategy=strategy,pos_amt=amount,
@@ -90,8 +90,8 @@ def register_pos_asof_bizdate(isin,biz_date,price,qty,amount,strategy,pos_source
     sess.commit()
 
 def calc_pos_asof_bizdate(biz_date,sess=None):
-    from PortfolioManagement.middletier.bonds.transactions import get_trn_bizdate,consolidate_trns
-    from PortfolioManagement.middletier.bonds.mtm_realised import register_mtm_realised_asof_bizdate
+    from middletier.bonds.transactions import get_trn_bizdate,consolidate_trns
+    from middletier.bonds.mtm_realised import register_mtm_realised_asof_bizdate
 
     trn_asof = get_trn_bizdate(biz_date=biz_date,sess=sess)
     pos_asof = get_pos_asof_bizdate(biz_date=biz_date,sess=sess)

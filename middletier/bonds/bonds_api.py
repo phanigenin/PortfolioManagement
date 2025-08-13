@@ -14,7 +14,7 @@ def get_all_bond_positions_detail(biz_date=datetime.today().date()):
     :param biz_date:
     :return:
     '''
-    from positions import get_pos_asof_bizdate_detail
+    from middletier.bonds.positions import get_pos_asof_bizdate_detail
     return get_pos_asof_bizdate_detail(biz_date)
 
 def get_all_bond_positions_closed(biz_date=datetime.today().date()):
@@ -154,6 +154,20 @@ def calculate_investment_returns(biz_date=datetime.today().date()):
     returns_detail = pd.merge(principal_rets, interest_rets, how="left", on=['pos_user', 'isin'])
     return returns_detail
 
+def get_bond_instruments():
+    import pandas as pd
+    from instruments import get_instruments
+    return get_instruments()
+
+def get_bond_instruments_by_isins(isins):
+    import pandas as pd
+    from instruments import get_instrument_by_isins
+    return get_instrument_by_isins(isins)
+
+def get_instrument_by_issuers(issuers):
+    import pandas as pd
+    from instruments import get_instrument_by_issuers
+    return get_instrument_by_issuers(issuers)
 
 #print(get_all_bond_positions_detail())
 #print(get_all_bond_positions_closed())
